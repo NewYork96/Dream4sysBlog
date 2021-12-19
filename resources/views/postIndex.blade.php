@@ -13,9 +13,13 @@
                         <h5 class="card-title">{{$post->title}}</h5>
                         <p class="card-text">{{$post->short}}</p>
                         <div class="btn-group" role="group" aria-label="Basic example">
-                            <a href="{{route('post.show', $post->id)}}"><button type="button" class="btn btn-primary m-1">Raed</button></a>
+                            <a href="{{route('post.show', $post->id)}}"><button type="button" class="btn btn-primary m-1">Read</button></a>
                             <a href="{{route('post.edit', $post->id)}}"><button type="button" class="btn btn-warning m-1">Edit</button></a>
-                            <a href="{{route('post.destroy', $post->id)}}"><button type="button" class="btn btn-danger m-1">Delete</button></a>
+                            <form action="{{route('post.destroy', $post->id)}}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn me-2 btn-danger m-1">Delete</button>
+                            </form>
                         </div>
                     </div>
                 </div>    

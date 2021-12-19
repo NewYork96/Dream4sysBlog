@@ -85,9 +85,11 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Post $post)
     {
-        //
+        $tags = Tag::all();
+
+        return view('postEdit', ['tags' => $tags, 'post' => $post]);
     }
 
     /**
@@ -97,9 +99,31 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Post $post)
     {
-        //
+        $request -> validate([
+            'title' => ['required', 'min:3', 'max:15',],
+            'short' => ['required', 'min:10', 'max:30',],
+            'text' => ['required', 'min:30'],
+            'tag' => ['required'],          
+        ]);
+    
+                $post -> title = $request-> title;
+
+                $post -> short = $request -> short;
+
+                $post -> text = $request -> text;
+
+                $post->save();
+
+                 if ($request -> tag != NULL) 
+                {
+                    foreach ($request -> tag as $tag) {
+                        $post -> tag() ->attach($tag);
+                    }
+                }
+    
+          return redirect(route('post.index'))->with('successEdit', 'Post successfully updated!');
     }
 
     /**
@@ -108,8 +132,10 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Post $post)
     {
-        //
+        $post -> delete();
+
+        return redirect(route('post.index'))->with('successDelete', 'Post successfully deleted!');
     }
 }
