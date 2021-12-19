@@ -38,17 +38,20 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Tag $tag)
     {
-       
+       $tags = Tag::all();
+
+       $collection = collect($tags);
+
         $request -> validate([
             'title' => ['required', 'min:3', 'max:15',],
             'short' => ['required', 'min:10', 'max:30',],
             'text' => ['required', 'min:30'],
             'tag' => ['required'],          
         ]);
-    
-               $post = new post;
+
+                $post = new Post;
 
                 $post -> title = $request-> title;
 
@@ -58,12 +61,26 @@ class PostController extends Controller
 
                 $post->save();
 
-                 if ($request -> tag != NULL) 
-                {
-                    foreach ($request -> tag as $tag) {
-                        $post -> tag() ->attach($tag);
-                    }
-                }
+                    foreach ($request -> tag as $requestTag) {
+                        
+                        $filtered = $collection->where('tagname', $requestTag);
+
+                        if ($filtered -> isEmpty()) {
+
+                            $newTag = new Tag;
+
+                            $newTag -> tagname = $requestTag;
+
+                            $newTag -> save();
+
+                        }
+
+                        $tag = Tag::where('tagname', $requestTag) -> get();
+                        
+                        foreach ($tag as $t) {
+                            $post -> tag() -> attach($t -> id);
+                        }
+                    }    
     
           return redirect(route('post.index'))->with('successCreate', 'New post successfully created!');
     }
@@ -99,8 +116,13 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Post $post)
+    public function update(Request $request, Post $post, Tag $tag)
     {
+        
+        $tags = Tag::all();
+
+        $collection = collect($tags);
+
         $request -> validate([
             'title' => ['required', 'min:3', 'max:15',],
             'short' => ['required', 'min:10', 'max:30',],
@@ -116,12 +138,31 @@ class PostController extends Controller
 
                 $post->save();
 
-                 if ($request -> tag != NULL) 
+                foreach ($post -> tag as $postTag) 
                 {
-                    foreach ($request -> tag as $tag) {
-                        $post -> tag() ->attach($tag);
-                    }
+                    $postTag -> post() -> detach();
                 }
+
+                foreach ($request -> tag as $requestTag) {
+                        
+                    $filtered = $collection->where('tagname', $requestTag);
+
+                    if ($filtered -> isEmpty()) {
+
+                        $newTag = new Tag;
+
+                        $newTag -> tagname = $requestTag;
+
+                        $newTag -> save();
+
+                    }
+
+                    $tag = Tag::where('tagname', $requestTag) -> get();
+                    
+                    foreach ($tag as $t) {
+                        $post -> tag() -> attach($t -> id);
+                    }
+                }    
     
           return redirect(route('post.index'))->with('successEdit', 'Post successfully updated!');
     }
