@@ -28,15 +28,18 @@
         @error('text')
             <div class="mb-2 text-danger fs-6 mx-auto col-6">{{$message}}</div>
         @enderror
-        <div class="mb-3 mx-auto col-6">
-            <label for="tag" class="form-label">Tags:</label>
-            <select id="tag" class="form-select" name="tag[]" @foreach ($tags as $tag)>
-                <option value="{{$tag -> id}}">
-                  {{$tag -> tagname}}
-                </option>
-              @endforeach
-            </select>
-          </div>
+        <label for="tag" class="form-label">Tags:</label>
+        <select class="js-example-basic-multiple form-control form-select" multiple="multiple" name="tag[]"  @foreach ($tags as $tag)>
+            @foreach ($post -> tag as $postTag)
+                <option @if ($tag -> id == $postTag -> id)
+                    selected="selected"
+                @endif>{{$tag -> tagname}}</option>
+            @endforeach
+        @endforeach
+        </select>
+        @error('tag')
+            <div class="mb-2 text-danger fs-6 mx-auto col-6">{{$message}}</div>
+        @enderror
         <button type="submit" class="btn btn-primary">Save</button>
     </form>
 @endsection

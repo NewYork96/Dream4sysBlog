@@ -28,6 +28,12 @@
 
       @elseif(session()-> has('successDelete'))
             <p class="fixed-top bg-success text-white col-2">{{session()->get('successDelete')}}</p>
+      @elseif(session()-> has('notFound'))
+            <p class="fixed-top bg-success text-white col-2">{{session()->get('notFound')}}</p>
+      @elseif(session()-> has('failLogin'))
+            <p class="fixed-top bg-success text-white col-2">{{session()->get('failLogin')}}</p>
+      @elseif(session()-> has('welcome'))
+            <p class="fixed-top bg-success text-white col-2">{{session()->get('welcome')}}</p>
       @endif
     </div>
 

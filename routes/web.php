@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\SearchController;
+use App\Http\Controllers\SessionController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,3 +17,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::resource('post', PostController::class);
+Route::get('search', [SearchController::class, 'search'])->name('search');
+Route::get('login', [SessionController::class, 'create']) -> name('login');
+Route::post('store', [SessionController::class, 'store']) -> name('store');
