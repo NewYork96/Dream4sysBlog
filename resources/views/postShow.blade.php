@@ -10,8 +10,11 @@
         <h5>Tags:</h5>
     <div class="mb-3">
         @foreach ($post -> tag as $tag)
-            <span>#{{ $tag -> tagname}}</span> 
-         @endforeach
+        <form action="{{route('search')}}" method="get">
+            <button type="submit" class="btn btn-link">#{{ $tag -> tagname}}</button></a>
+            <input class="invisible" type="text" value="{{$tag -> id}}" name="tag"> 
+        </form>
+        @endforeach
     </div>
     <div class="btn-group" role="group" aria-label="Basic example">
         <a href="{{route('post.edit', $post->id)}}"><button type="button" class="btn btn-warning">Edit</button></a>
