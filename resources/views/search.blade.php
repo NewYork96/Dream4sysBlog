@@ -1,26 +1,6 @@
 @extends('header')
 
 @section('content')
-<h1 class="text-center mt-3">Home page</h1>
-<div class="row border bg-warning">
-    <div class="col-7">
-        <a href="{{route('post.create')}}"><button type="button" class="btn btn-primary mt-2">New Post</button></a>
-    </div>
-    <div class="col-4">
-        <form action="{{route('search')}}" method="get">
-            <div class="input-group m-2">
-                <select class="form-control form-select" name="tag" @foreach ($tags as $tag)>
-                    <option value="{{$tag -> id}}">{{$tag -> tagname}}</option>
-                @endforeach
-                </select>
-                <button type="submit" class="btn btn-outline-primary btn-sm">Search</button>
-            </div>
-        </form>
-    </div>
-    <div class="col-1">
-        <a href="{{route('login')}}"><button type="button" class="btn btn-primary mt-2">Login</button></a>
-    </div>
-</div>
     <div class="row">   
         @foreach ($posts as $post)
             <div class="col-xl-4 col-md-6 col-s-12">
@@ -44,5 +24,8 @@
                 </div>    
             </div>
         @endforeach
+    </div>
+    <div class="row">
+        <a href="{{ url()->previous() }}"><button type="button" class= " btn btn-primary ms-5">Back</button></a>
     </div>
 @endsection

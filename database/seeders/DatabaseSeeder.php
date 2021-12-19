@@ -6,6 +6,7 @@ use Illuminate\Database\Seeder;
 use App\Models\Tag;
 use App\Models\Post;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -61,7 +62,7 @@ class DatabaseSeeder extends Seeder
         User::create([
             'name' => 'Chosen One',
             'email' => 'only@email.com',
-            'password' => 'laravel',
+            'password' => Hash::make('laravel1'),
         ]);
 
         foreach (Post::all() as $post) {
