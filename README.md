@@ -1,3 +1,16 @@
+For testing:
+
+First, you need to migrate and than seed the database with the required php artisan commands. Afer that, please use teh php artisan serve command, than open your browser, and type or copy the next url: http://localhost:8000/post.
+
+Than, you have the chance to sing in with the only user that can be found in the system. The required credentials are the next ones:
+e-mail address - "only@email.com", password - "laravel1".
+
+Szükséges leaírás a teszteléshez:
+
+Először is migrálni kell az adatokat, illetve lefuttatni a seeder filet. Ezt követően szükség van a terminál parancs futtatására. Amint ez megtörtént, a következő url.en keresztül lehet elérni a projekt főoldalát: http://localhost:8000/post.
+
+Lehetőség van bejelnetkezni egy felhasználóval is. A bejelentkezéshez szükséges adatok a következők: e-mail cím - "only@email.com", jelszó - "laravel1".
+
 <<<<<<< HEAD
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
 
