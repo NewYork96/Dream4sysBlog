@@ -1,6 +1,6 @@
 For testing:
 
-First, you need to migrate and than seed the database with the required php artisan commands. Afer that, please use teh php artisan serve command, than open your browser, and type or copy the next url: http://localhost:8000/post.
+First, you need to migrate and than seed the database with the required php artisan commands. After that, please use teh php artisan serve command, than open your browser, and type or copy the next url: http://localhost:8000/post.
 
 Than, you have the chance to sing in with the only user that can be found in the system. The required credentials are the next ones:
 e-mail address - "only@email.com", password - "laravel1".
